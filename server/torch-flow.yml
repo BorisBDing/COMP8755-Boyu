@@ -1,0 +1,33 @@
+jtype: Flow
+version: '1'
+with:
+  port: [51000, 51200, 51300]
+  protocol: ['GRPC', 'HTTP', 'WEBSOCKET']
+  monitoring: True
+  port_monitoring: 9090
+executors:
+  - name: encoder
+    uses:
+      jtype: CLIPEncoder
+      with:
+        #name: ViT-B-32::openai
+        #name: roberta-ViT-B-32::laion2b-s12b-b32k
+        name: clip-vit-base-patch32
+      metas:
+        py_modules:
+          - executors.clip_torch
+    timeout_ready: 3000000
+    replicas: 3
+    monitoring: true
+    port_monitoring: 9091
+  - name: indexer
+    uses:
+      jtype: AnnLiteIndexer
+      with:
+        n_dim: 512
+        limit: 3
+      metas:
+        py_modules:
+          - executors.AnnLite
+    replicas: 1
+    workspace: './workspace'
