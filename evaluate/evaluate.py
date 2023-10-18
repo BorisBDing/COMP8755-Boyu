@@ -19,7 +19,7 @@ def clean():
             counter[dic][attr_name]["output"] = 0
             counter[dic][attr_name]["interface"] = 0
 
-#计算bias的方法
+#the method of quantified bias
 def calculate_bias1(counter):
     inline_bias = math.sqrt(np.mean(np.square(counter["input"])))
     content_diff = counter["input"] - counter["output"]
@@ -41,7 +41,7 @@ def calculate_bias3(counter):
     return content_bias, interface_bias
 
 bias = {}
-#计算bias
+#computing bias
 def get_bias(key):
     dics = []
     if key in counter.keys():
@@ -72,7 +72,7 @@ def get_bias(key):
 attributes = ["century","country","medium"]
 req_key = ["vase","bottle","bowl","chair","cup","plate","pot","table"]
 counter = {}
-#读取文件与数据
+#read file and data
 csv_file="../db/data.csv"
 data_path = csv_file
 dir_path = os.path.dirname(data_path)
@@ -94,16 +94,16 @@ for obj_name in objs.index:
         counter[obj_name][attr_name]=attr
 res_item=objs
 res_item['count'] = 0
-#根据文件名与id设置图片路径
+#setting the pathway according to the file name and id we set
 for doc in docs:
     doc.uri = dir_path + "/"+str(doc.tags['category'])+"/" + str(doc.tags["objid"]) + ".jpg"
-#创建连接
+#build the link to the index module
 client = Client('http://0.0.0.0:51200')
 client._client.post(on='/clear')
 client.index(docs, show_progress=True, return_results=True)
 
 for key in req_key:
-    #搜索相关的key
+    #key words searching
     ret = client.search([key,],limit=50)
     res = ret['@m']
     bias[key] = {}
