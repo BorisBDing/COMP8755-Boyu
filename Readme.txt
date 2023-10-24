@@ -1,5 +1,7 @@
 Project readme:
 
+Note: You also can see the User Guidline video and artefact performance under this link (https://anu365-my.sharepoint.com/:f:/g/personal/u7350592_anu_edu_au/EgwmTXzDdN1Nnrc47RGdPzgBjozcPpx2P-fWkUDauPdGgg?e=t5BBia). This link also includ all code about my project.
+
 The target user for this project: this artefact is design for Data scientists and researchers who are interested in bias research.
 
 This project utilise different multi-modal models and click models to study the bias in existing multi-modal searches, and quantitatively analyzes the bias of different models between different keywords.
